@@ -16,6 +16,7 @@ export const HomePage = () => {
     x: 0,
     y: 0,
   })
+  const [info, setInfo] = useState('Info')
 
   const gameLoop = () => {
     if (!direction) return
@@ -44,7 +45,9 @@ export const HomePage = () => {
     setCoords({x, y})
   }
 
-  const getDirection = (e) => {
+  const handleOrientation = (e) => {
+
+    setInfo('Info: ' + e.gamma)
     const angleX = e.gamma / 90 || 0
     const angleY = e.beta / 90 || 0
     const absX = Math.abs(angleX)
@@ -72,9 +75,19 @@ export const HomePage = () => {
 
   // device orientation
   useEffect(() => {
-    window.addEventListener('deviceorientation', getDirection)
+    if (typeof DeviceMotionEvent?.requestPermission === 'function') {
+      DeviceMotionEvent.requestPermission()
+        .then(permissionState => {
+          if (permissionState === 'granted') {
+            window.addEventListener('deviceorientation', handleOrientation);
+          }
+        });
+    } else {
+      window.addEventListener('deviceorientation', handleOrientation);
+    }
+
     return () => {
-      window.removeEventListener('deviceorientation', getDirection)
+      window.removeEventListener('deviceorientation', handleOrientation)
     }
   }, [])
 
@@ -91,6 +104,7 @@ export const HomePage = () => {
     <div className="game">
       <GameUI angle={angle} />
       <Player {...coords} />
+      <p>{info}</p>
     </div>
   );
 };

@@ -10,12 +10,14 @@ export const HomePage = () => {
     x: window.innerWidth / 2 - 25,
     y: window.innerHeight / 2 - 25,
   })
-  const [isMoving, setIsMoving] = useState(false)
   const [direction, setDirection] = useState(null)
   const [angle, setPhoneAngle] = useState({
     x: 0,
     y: 0,
   })
+  const [permission, setPermission] = useState(false)
+
+
   const [info, setInfo] = useState('Info')
 
   const gameLoop = () => {
@@ -46,8 +48,8 @@ export const HomePage = () => {
   }
 
   const handleOrientation = (e) => {
-
     setInfo('Info: ' + e.gamma)
+
     const angleX = e.gamma / 90 || 0
     const angleY = e.beta / 90 || 0
     const absX = Math.abs(angleX)
@@ -73,38 +75,42 @@ export const HomePage = () => {
     }
   }, [])
 
-  // device orientation
-  useEffect(() => {
+
+  const requestPermission = () => {
     if (typeof DeviceMotionEvent?.requestPermission === 'function') {
       DeviceMotionEvent.requestPermission()
         .then(permissionState => {
           if (permissionState === 'granted') {
             window.addEventListener('deviceorientation', handleOrientation);
+            setPermission(true)
           }
         });
     } else {
       window.addEventListener('deviceorientation', handleOrientation);
+      setPermission(true)
     }
-
-    return () => {
-      window.removeEventListener('deviceorientation', handleOrientation)
-    }
-  }, [])
-
-  const handleDirectionChange = (dir) => {
-    if (dir === 'Center') {
-      setIsMoving(false)
-      setDirection(null)
-    }
-    setIsMoving(true)
-    setDirection(dir)
   }
+
+  // // device orientation
+  // useEffect(() => {
+
+  //   return () => {
+  //     window.removeEventListener('deviceorientation', handleOrientation)
+  //   }
+  // }, [])
 
   return (
     <div className="game">
-      <GameUI angle={angle} />
-      <Player {...coords} />
-      <p>{info}</p>
+
+      {permission ? (
+        <>
+          <GameUI angle={angle} />
+          <Player {...coords} />
+          <p>{info}</p>
+        </>
+      ) : (
+        <button onClick={requestPermission}>Request permission</button>
+      )}
     </div>
   );
 };

@@ -15,7 +15,7 @@ export const HomePage = () => {
   })
   const [isMoving, setIsMoving] = useState(true)
   const [direction, setDirection] = useState(null)
-  const [angle, setPhoneAngle] = useState({
+  const [angle, setAngle] = useState({
     x: 0,
     y: 0,
   })
@@ -36,7 +36,7 @@ export const HomePage = () => {
     const maxX = window.innerWidth - 50;
     const maxY = window.innerHeight - 50;
 
-    switch(direction) {
+    switch(test) {
       case 'left':
         x = Math.max(x - step, 0)
         break
@@ -71,7 +71,7 @@ export const HomePage = () => {
     }
 
     setTest(dir)
-    setPhoneAngle({x: angleX, y: angleY})
+    setAngle({x: angleX, y: angleY})
     setDirection(dir)
     setIsMoving(dir !== null)
   }

@@ -20,11 +20,11 @@ export const HomePage = () => {
     y: 0,
   })
   const [permission, setPermission] = useState(false)
-
-
-  const [info, setInfo] = useState('Info')
+  const [info, setInfo] = useState(0)
 
   const gameLoop = () => {
+    setInfo(oldInfo => oldInfo + 1)
+
     if (!isMoving) return
 
     const step = 10;
@@ -58,10 +58,10 @@ export const HomePage = () => {
     const absY = Math.abs(angleY)
     let dir = null
 
-    if (absX > 0.1 && absX > absY) {
+    if (absX > 0.05 && absX > absY) {
       dir = angleX < 0 ? 'left' : 'right'
     }
-    if (absY > 0.10 && absY > absX) {
+    if (absY > 0.05 && absY > absX) {
       dir = angleY < 0 ? 'up' : 'down'
     }
 

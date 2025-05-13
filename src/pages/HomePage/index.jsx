@@ -29,14 +29,7 @@ export const HomePage = () => {
   const isMovingRef = useRef(false)
 
 
-  const [info, setInfo] = useState('info')
-  const [test, setTest] = useState('test')
-  const [count, setCount] = useState(0)
-
   const gameLoop = () => {
-    // setCount(oldCount => oldCount + 1)
-    // setInfo((isMoving ? 'moving' : 'not moving') + ' - ' + direction)
-
     if (!isMovingRef.current) return
 
     const step = 10;
@@ -70,8 +63,6 @@ export const HomePage = () => {
     const absY = Math.abs(angleY)
     let dir = null
 
-    // setTest(`AbsX: ${absX} / AbsY: ${absY} / ${absX > absY ? 'XXXXXX' : 'YYYYYY'}`);
-
     if (absX > 0.05 && absX > absY) {
       dir = angleX < 0 ? 'left' : 'right'
     }
@@ -92,6 +83,7 @@ export const HomePage = () => {
     }
   }, [])
 
+  // updating refs
   useEffect(() => {
     coordsRef.current = coords
     directionRef.current = direction
@@ -132,18 +124,8 @@ export const HomePage = () => {
 
       {permission ? (
         <>
-          <GameUI angle={angle} />
+          <GameUI angle={angle} direction={direction} />
           <Player {...coords} />
-          <div style={{
-            position: 'absolute',
-            bottom: 20,
-            left: 20,
-          }}>
-            <p>Direction: {direction}</p>
-            <p>Test: {test}</p>
-            <p>Info: {info}</p>
-            <p>{count}</p>
-          </div>
         </>
       ) : (
         <PermissionUI handlePermission={requestPermission} />

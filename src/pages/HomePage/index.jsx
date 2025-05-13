@@ -71,8 +71,8 @@ export const HomePage = () => {
     }
 
     setTest(dir)
-    setAngle({x: angleX, y: angleY})
     setDirection(dir)
+    setAngle({x: angleX, y: angleY})
     setIsMoving(dir !== null)
   }
 
@@ -125,8 +125,9 @@ export const HomePage = () => {
             bottom: 20,
             left: 20,
           }}>
-            <p>{test}</p>
-            <p>{info}</p>
+            <p>Direction: {direction}</p>
+            <p>Test: {test}</p>
+            <p>Info: {info}</p>
             <p>{count}</p>
           </div>
         </>

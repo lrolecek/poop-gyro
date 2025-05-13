@@ -65,13 +65,12 @@ export const HomePage = () => {
 
     if (absX > 0.05 && absX > absY) {
       dir = angleX < 0 ? 'left' : 'right'
-      setTest('XXXXX ' + dir )
     }
     if (absY > 0.05 && absY > absX) {
       dir = angleY < 0 ? 'up' : 'down'
-      setTest('YYYYY ' + dir)
     }
 
+    setTest(dir)
     setPhoneAngle({x: angleX, y: angleY})
     setDirection(dir)
     setIsMoving(dir !== null)

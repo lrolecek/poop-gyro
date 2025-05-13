@@ -20,10 +20,12 @@ export const HomePage = () => {
     y: 0,
   })
   const [permission, setPermission] = useState(false)
-  const [info, setInfo] = useState(0)
+  const [info, setInfo] = useState('info')
+  const [count, setCount] = useState(0)
 
   const gameLoop = () => {
-    setInfo(oldInfo => oldInfo + 1)
+    setCount(oldCount => oldCount + 1)
+    setInfo((isMoving ? 'moving' : 'not moving') + ' - ' + direction)
 
     if (!isMoving) return
 

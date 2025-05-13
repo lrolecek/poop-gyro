@@ -1,0 +1,32 @@
+.gameUI {
+  position: absolute;
+  inset: 0;
+  padding: 20px;
+}
+
+.title {
+  font-size: 20px;
+  text-align: center;
+  color: #6c5ce7;
+}
+
+.info {
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+  opacity: 0.4;
+}
+
+.subinfo {
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: center;
+  opacity: 0.3;
+}
+
+.angleinfo {
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+}
+

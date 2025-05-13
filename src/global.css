@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100dvw;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  touch-action: none;
+}
+
+body {
+  font-family: "Press Start 2P", system-ui;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}

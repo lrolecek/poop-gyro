@@ -21,8 +21,8 @@ export const HomePage = () => {
 
   const [info, setInfo] = useState('Info')
 
-  const gameLoop = () => {
-    if (!direction) return
+  useEffect(() => {
+    if (direction === null) return
 
     const step = 10;
     let {x, y} = coords
@@ -46,21 +46,19 @@ export const HomePage = () => {
     }
 
     setCoords({x, y})
-  }
+  }, [direction])
 
   const handleOrientation = (e) => {
-    setInfo('Info: ' + e.gamma)
-
     const angleX = e.gamma / 90 || 0
     const angleY = e.beta / 90 || 0
     const absX = Math.abs(angleX)
     const absY = Math.abs(angleY)
     let dir = null
 
-    if (absX > 0.15 && absX > absY) {
+    if (absX > 0.1 && absX > absY) {
       dir = angleX < 0 ? 'left' : 'right'
     }
-    if (absY > 0.15 && absY > absX) {
+    if (absY > 0.10 && absY > absX) {
       dir = angleY < 0 ? 'up' : 'down'
     }
 
@@ -68,37 +66,40 @@ export const HomePage = () => {
     setPhoneAngle({x: angleX, y: angleY})
   }
 
-  // game loop
-  useEffect(() => {
-    const intervalId = setInterval(gameLoop, 25)
-    return () => {
-      clearInterval(intervalId)
-    }
-  }, [])
+  // // game loop
+  // useEffect(() => {
+  //   const intervalId = setInterval(gameLoop, 25)
+  //   return () => {
+  //     clearInterval(intervalId)
+  //   }
+  // }, [])
 
 
   const requestPermission = () => {
     if (typeof DeviceMotionEvent?.requestPermission === 'function') {
-      DeviceMotionEvent.requestPermission()
-        .then(permissionState => {
-          if (permissionState === 'granted') {
-            window.addEventListener('deviceorientation', handleOrientation);
-            setPermission(true)
-          }
-        });
+      DeviceMotionEvent
+      .requestPermission()
+      .then(permissionState => {
+        if (permissionState === 'granted') {
+          setPermission(true)
+        }
+      });
     } else {
-      window.addEventListener('deviceorientation', handleOrientation);
       setPermission(true)
     }
   }
 
-  // // device orientation
-  // useEffect(() => {
+  // device orientation permission
+  useEffect(() => {
+    if (permission) {
+      window.addEventListener('deviceorientation', handleOrientation);
+    }
 
-  //   return () => {
-  //     window.removeEventListener('deviceorientation', handleOrientation)
-  //   }
-  // }, [])
+    return () => {
+      window.removeEventListener('deviceorientation', handleOrientation)
+    }
+  }, [permission])
+
 
   return (
     <div className="game">

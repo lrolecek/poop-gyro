@@ -21,6 +21,10 @@ export const HomePage = () => {
   })
   const [permission, setPermission] = useState(false)
 
+  const coordsRef = useRef({
+    x: window.innerWidth / 2 - 25,
+    y: window.innerHeight / 2 - 25,
+  })
   const directionRef = useRef(null)
   const isMovingRef = useRef(false)
 
@@ -36,7 +40,7 @@ export const HomePage = () => {
     if (!isMovingRef.current) return
 
     const step = 10;
-    let {x, y} = coords
+    let {x, y} = coordsRef.current
 
     const maxX = window.innerWidth - 50;
     const maxY = window.innerHeight - 50;
@@ -89,9 +93,10 @@ export const HomePage = () => {
   }, [])
 
   useEffect(() => {
-    directionRef.current = direction;
-    isMovingRef.current = isMoving;
-  }, [direction, isMoving])
+    coordsRef.current = coords
+    directionRef.current = direction
+    isMovingRef.current = isMoving
+  }, [coords, direction, isMoving])
 
 
   const requestPermission = () => {

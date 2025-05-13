@@ -5,12 +5,15 @@ import './style.css';
 import GameUI from '../../components/GameUI/GameUI';
 import PermissionUI from '../../components/PermissionUI/PermissionUI';
 
+import { throttle } from '../../utils/utils';
+
 export const HomePage = () => {
 
   const [coords, setCoords] = useState({
     x: window.innerWidth / 2 - 25,
     y: window.innerHeight / 2 - 25,
   })
+  const [isMoving, setIsMoving] = useState(true)
   const [direction, setDirection] = useState(null)
   const [angle, setPhoneAngle] = useState({
     x: 0,
@@ -21,8 +24,8 @@ export const HomePage = () => {
 
   const [info, setInfo] = useState('Info')
 
-  useEffect(() => {
-    if (direction === null) return
+  const gameLoop = () => {
+    if (!isMoving) return
 
     const step = 10;
     let {x, y} = coords
@@ -46,7 +49,7 @@ export const HomePage = () => {
     }
 
     setCoords({x, y})
-  }, [direction])
+  }
 
   const handleOrientation = (e) => {
     const angleX = e.gamma / 90 || 0
@@ -62,17 +65,18 @@ export const HomePage = () => {
       dir = angleY < 0 ? 'up' : 'down'
     }
 
-    setDirection(dir)
     setPhoneAngle({x: angleX, y: angleY})
+    setDirection(dir)
+    setIsMoving(dir !== null)
   }
 
-  // // game loop
-  // useEffect(() => {
-  //   const intervalId = setInterval(gameLoop, 25)
-  //   return () => {
-  //     clearInterval(intervalId)
-  //   }
-  // }, [])
+  // game loop
+  useEffect(() => {
+    const intervalId = setInterval(gameLoop, 25)
+    return () => {
+      clearInterval(intervalId)
+    }
+  }, [])
 
 
   const requestPermission = () => {
@@ -91,12 +95,14 @@ export const HomePage = () => {
 
   // device orientation permission
   useEffect(() => {
+    const throttledHandleOrientation = throttle(handleOrientation, 20)
+
     if (permission) {
-      window.addEventListener('deviceorientation', handleOrientation);
+      window.addEventListener('deviceorientation', throttledHandleOrientation)
     }
 
     return () => {
-      window.removeEventListener('deviceorientation', handleOrientation)
+      window.removeEventListener('deviceorientation', throttledHandleOrientation)
     }
   }, [permission])
 

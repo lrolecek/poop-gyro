@@ -1,0 +1,38 @@
+.permissionUI {
+  position: absolute;
+  inset: 0;
+  padding: 20px;
+}
+
+.permissionUI .title {
+  font-size: 20px;
+  text-align: center;
+  color: #6c5ce7;
+}
+
+.permissionUI .info {
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+  opacity: 1;
+}
+
+.buttonContainer {
+  padding: 50px 0;
+  text-align: center;
+}
+
+.button {
+  padding: 20px 30px;
+  font-family: "Press Start 2P", system-ui;
+  font-size: 24px;
+  color: white;
+  background: #6c5ce7;
+  border: 2px solid black;
+  border-radius: 8px;
+  box-shadow: 6px 6px 0 #6c5ce740;
+}
+.button:active {
+  translate: 4px 4px;
+  box-shadow: 2px 2px 0 #6c5ce740;
+}

@@ -3,6 +3,7 @@ import Player from '../../components/Player/Player';
 
 import './style.css';
 import GameUI from '../../components/GameUI/GameUI';
+import PermissionUI from '../../components/PermissionUI/PermissionUI';
 
 export const HomePage = () => {
 
@@ -109,7 +110,7 @@ export const HomePage = () => {
           <p>{info}</p>
         </>
       ) : (
-        <button onClick={requestPermission}>Request permission</button>
+        <PermissionUI handlePermission={requestPermission} />
       )}
     </div>
   );

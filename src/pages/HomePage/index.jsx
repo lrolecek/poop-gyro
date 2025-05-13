@@ -116,7 +116,14 @@ export const HomePage = () => {
         <>
           <GameUI angle={angle} />
           <Player {...coords} />
-          <p>{info}</p>
+          <div style={{
+            position: 'absolute',
+            bottom: 20,
+            left: 20,
+          }}>
+            <p>{info}</p>
+            <p>{count}</p>
+          </div>
         </>
       ) : (
         <PermissionUI handlePermission={requestPermission} />

@@ -64,12 +64,12 @@ export const HomePage = () => {
     // setTest(`AbsX: ${absX} / AbsY: ${absY} / ${absX > absY ? 'XXXXXX' : 'YYYYYY'}`);
 
     if (absX > 0.05 && absX > absY) {
-      setTest('XXXXX')
       dir = angleX < 0 ? 'left' : 'right'
+      setTest('XXXXX ' + dir )
     }
     if (absY > 0.05 && absY > absX) {
-      setTest('YYYYY')
       dir = angleY < 0 ? 'up' : 'down'
+      setTest('YYYYY ' + dir)
     }
 
     setPhoneAngle({x: angleX, y: angleY})

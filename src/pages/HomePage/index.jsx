@@ -75,9 +75,8 @@ export const HomePage = () => {
       dir = angleY < 0 ? 'up' : 'down'
     }
 
-    setTest(dir)
-    setDirection(dir)
     setAngle({x: angleX, y: angleY})
+    setDirection(dir)
     setIsMoving(dir !== null)
   }
 
@@ -92,7 +91,7 @@ export const HomePage = () => {
   useEffect(() => {
     directionRef.current = direction;
     isMovingRef.current = isMoving;
-  })
+  }, [direction, isMoving])
 
 
   const requestPermission = () => {

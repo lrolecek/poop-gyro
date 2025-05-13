@@ -21,6 +21,7 @@ export const HomePage = () => {
   })
   const [permission, setPermission] = useState(false)
   const [info, setInfo] = useState('info')
+  const [test, setTest] = useState('test')
   const [count, setCount] = useState(0)
 
   const gameLoop = () => {
@@ -59,6 +60,8 @@ export const HomePage = () => {
     const absX = Math.abs(angleX)
     const absY = Math.abs(angleY)
     let dir = null
+
+    setTest(`AbsX: ${absX} / AbsY: ${absY}`);
 
     if (absX > 0.05 && absX > absY) {
       dir = angleX < 0 ? 'left' : 'right'
@@ -121,6 +124,7 @@ export const HomePage = () => {
             bottom: 20,
             left: 20,
           }}>
+            <p>{test}</p>
             <p>{info}</p>
             <p>{count}</p>
           </div>

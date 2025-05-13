@@ -61,12 +61,14 @@ export const HomePage = () => {
     const absY = Math.abs(angleY)
     let dir = null
 
-    setTest(`AbsX: ${absX} / AbsY: ${absY} / ${absX > absY ? 'XXXXXX' : 'YYYYYY'}`);
+    // setTest(`AbsX: ${absX} / AbsY: ${absY} / ${absX > absY ? 'XXXXXX' : 'YYYYYY'}`);
 
     if (absX > 0.05 && absX > absY) {
+      setTest('XXXXX')
       dir = angleX < 0 ? 'left' : 'right'
     }
     if (absY > 0.05 && absY > absX) {
+      setTest('YYYYY')
       dir = angleY < 0 ? 'up' : 'down'
     }
 

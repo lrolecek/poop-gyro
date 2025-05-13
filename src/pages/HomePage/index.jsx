@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Player from '../../components/Player/Player';
 
 import './style.css';
@@ -13,22 +13,27 @@ export const HomePage = () => {
     x: window.innerWidth / 2 - 25,
     y: window.innerHeight / 2 - 25,
   })
-  const [isMoving, setIsMoving] = useState(true)
+  const [isMoving, setIsMoving] = useState(false)
   const [direction, setDirection] = useState(null)
   const [angle, setAngle] = useState({
     x: 0,
     y: 0,
   })
   const [permission, setPermission] = useState(false)
+
+  const directionRef = useRef(null)
+  const isMovingRef = useRef(false)
+
+
   const [info, setInfo] = useState('info')
   const [test, setTest] = useState('test')
   const [count, setCount] = useState(0)
 
   const gameLoop = () => {
-    setCount(oldCount => oldCount + 1)
-    setInfo((isMoving ? 'moving' : 'not moving') + ' - ' + direction)
+    // setCount(oldCount => oldCount + 1)
+    // setInfo((isMoving ? 'moving' : 'not moving') + ' - ' + direction)
 
-    if (!isMoving) return
+    if (!isMovingRef.current) return
 
     const step = 10;
     let {x, y} = coords
@@ -36,7 +41,7 @@ export const HomePage = () => {
     const maxX = window.innerWidth - 50;
     const maxY = window.innerHeight - 50;
 
-    switch(test) {
+    switch(directionRef.current) {
       case 'left':
         x = Math.max(x - step, 0)
         break
@@ -83,6 +88,11 @@ export const HomePage = () => {
       clearInterval(intervalId)
     }
   }, [])
+
+  useEffect(() => {
+    directionRef.current = direction;
+    isMovingRef.current = isMoving;
+  })
 
 
   const requestPermission = () => {

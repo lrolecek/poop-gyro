@@ -9,7 +9,7 @@ export const GameUI = ({angle, direction}) => {
         Angle X: {angle.x.toFixed(2)}<br />
         Angle Y: {angle.y.toFixed(2)}
       </p>
-      <p className="angleinfo">{direction}</p>
+      <p className="angleinfo">{direction ? direction : 'not moving'}</p>
     </div>
   )
 }

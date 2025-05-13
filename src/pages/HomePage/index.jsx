@@ -63,10 +63,10 @@ export const HomePage = () => {
     const absY = Math.abs(angleY)
     let dir = null
 
-    if (absX > 0.05 && absX > absY) {
+    if (absX > 0.08 && absX > absY) {
       dir = angleX < 0 ? 'left' : 'right'
     }
-    if (absY > 0.05 && absY > absX) {
+    if (absY > 0.08 && absY > absX) {
       dir = angleY < 0 ? 'up' : 'down'
     }
 
@@ -107,7 +107,7 @@ export const HomePage = () => {
 
   // device orientation permission
   useEffect(() => {
-    const throttledHandleOrientation = throttle(handleOrientation, 20)
+    const throttledHandleOrientation = throttle(handleOrientation, 40)
 
     if (permission) {
       window.addEventListener('deviceorientation', throttledHandleOrientation)
